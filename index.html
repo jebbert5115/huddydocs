@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal – HUDdy</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #08090c;
+      color: #c8cdd5;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #0d0f14 0%, #101318 100%);
+      border-bottom: 1px solid #1e2228;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header .brand img {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border-radius: 8px;
+    }
+
+    header .brand-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #5ce0d8;
+    }
+
+    header .invite-link {
+      color: #7a8494;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    header .invite-link:hover { color: #5ce0d8; }
+
+    /* ── Layout ──────────────────────────────────────────────────── */
+    .layout {
+      display: flex;
+      flex: 1;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────────── */
+    .sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: #0b0d11;
+      border-right: 1px solid #1e2228;
+      padding: 2rem 1rem;
+      position: sticky;
+      top: 0;
+      height: calc(100vh - 73px);
+      overflow-y: auto;
+    }
+
+    .sidebar h3 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #4a5568;
+      padding: 0 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .sidebar nav button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: #7a8494;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .sidebar nav button:hover {
+      background: #141820;
+      color: #c8cdd5;
+    }
+
+    .sidebar nav button.active {
+      background: #0f2a2a;
+      color: #5ce0d8;
+      font-weight: 600;
+    }
+
+    /* ── Main content ────────────────────────────────────────────── */
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section {
+      display: none;
+      max-width: 860px;
+      margin: 3rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .section.active { display: block; }
+
+    .page-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #e8ecf0;
+      margin-bottom: 0.4rem;
+    }
+
+    .last-updated {
+      font-size: 0.85rem;
+      color: #556270;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: #10131a;
+      border: 1px solid #1e2228;
+      border-radius: 12px;
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #5ce0d8;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h2 .num {
+      background: #0f2a2a;
+      color: #5ce0d8;
+      border-radius: 6px;
+      padding: 0.1rem 0.55rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #b0b8c4;
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    .card p {
+      color: #7a8494;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card ul li {
+      color: #7a8494;
+      padding: 0.3rem 0 0.3rem 1.4rem;
+      position: relative;
+    }
+
+    .card ul li::before {
+      content: '›';
+      position: absolute;
+      left: 0.1rem;
+      color: #3bbfb8;
+      font-weight: 700;
+    }
+
+    .card a {
+      color: #5ce0d8;
+      text-decoration: none;
+    }
+
+    .card a:hover { text-decoration: underline; }
+
+    /* TOS-specific */
+    .warning-box {
+      background: #12100e;
+      border: 1px solid #3a2a10;
+      border-left: 4px solid #d4a843;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.5rem;
+      color: #7a8494;
+      font-size: 0.92rem;
+    }
+
+    .warning-box strong { color: #d4a843; }
+
+    .not-list {
+      background: #120e0e;
+      border: 1px solid #3a1515;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .not-list .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #e04545;
+      margin-bottom: 0.5rem;
+    }
+
+    .not-list ul li::before { color: #e04545; content: '✕'; font-size: 0.75rem; top: 0.45rem; }
+
+    /* PP-specific */
+    .badge-do-not {
+      display: inline-block;
+      background: #0d1518;
+      border: 1px solid #1a3038;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin-top: 0.25rem;
+      width: 100%;
+    }
+
+    .badge-do-not .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #3bbfb8;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Shared invite button */
+    .invite-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1a8a84;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .invite-btn:hover { background: #14706b; text-decoration: none; }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #4a5568;
+      font-size: 0.8rem;
+      border-top: 1px solid #1e2228;
+      flex-shrink: 0;
+    }
+
+    footer a { color: #5ce0d8; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid #1e2228;
+        padding: 1rem;
+      }
+
+      .sidebar nav {
+        flex-direction: row;
+      }
+
+      .sidebar nav button {
+        flex: 1;
+        text-align: center;
+      }
+
+      .layout {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="#">
+    <span class="brand-name">HUDdy</span>
+  </a>
+  <a class="invite-link" href="https://discord.com/oauth2/authorize?client_id=1448887377996288131" target="_blank" rel="noopener">Invite Bot</a>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h3>Legal</h3>
+    <nav>
+      <button id="btn-tos" class="active" onclick="showSection('tos')">Terms of Service</button>
+      <button id="btn-pp" onclick="showSection('pp')">Privacy Policy</button>
+    </nav>
+  </aside>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Terms of Service -->
+    <section id="section-tos" class="section active">
+      <h1 class="page-title">Terms of Service</h1>
+      <p class="last-updated">Last Updated: February 26, 2026</p>
+
+      <div class="card">
+        <h2><span class="num">1</span> Acceptance of Terms</h2>
+        <p>
+          By using the Game Companion Bot ("the Bot"), you agree to these Terms of Service.
+          If you do not agree, please do not use the Bot.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">2</span> Description of Service</h2>
+        <p>The Bot provides information and entertainment related to Arc Raiders, including:</p>
+        <ul>
+          <li>Arc Raiders event timers, map schedules, trader inventories, quests, and ARC unit data.</li>
+          <li>An interactive Expedition minigame with combat, crafting, contracts, and persistent progress.</li>
+        </ul>
+        <p>
+          The Bot retrieves game data from third-party APIs and displays it within Discord.
+          The Expedition minigame is a fan-made feature and is not affiliated with or endorsed by
+          the developers of Arc Raiders.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">3</span> User Eligibility</h2>
+        <p>
+          You must comply with Discord's Terms of Service to use this Bot.
+          The Bot is intended for personal, non-commercial use.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">4</span> Acceptable Use</h2>
+        <div class="not-list">
+          <div class="label">You agree NOT to:</div>
+          <ul>
+            <li>Use the Bot for any illegal purpose.</li>
+            <li>Attempt to exploit, hack, or disrupt the Bot.</li>
+            <li>Use automated systems to spam commands.</li>
+            <li>Resell or redistribute the Bot's services.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">5</span> Third-Party Data</h2>
+        <p>The Bot displays data from third-party sources:</p>
+        <ul>
+          <li>
+            <strong>Arc Raiders data</strong> – Provided by
+            <a href="https://metaforge.app" target="_blank" rel="noopener">Metaforge</a>.
+          </li>
+        </ul>
+        <p>We are not responsible for the accuracy, availability, or timeliness of third-party data.</p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">6</span> Virtual Items and Game Progress</h2>
+        <p>
+          The Expedition minigame features virtual items, currencies, and progress that have
+          <strong>no real-world value</strong>. We reserve the right to modify, reset, or remove
+          any game data, including player inventories, stats, and progress, at any time without notice.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">7</span> Availability</h2>
+        <p>
+          The Bot is provided "as is" without guarantees of uptime or availability.
+          We may modify, suspend, or discontinue the Bot at any time without notice.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">8</span> Limitation of Liability</h2>
+        <div class="warning-box">
+          <strong>THE BOT IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.</strong>
+          IN NO EVENT SHALL THE BOT OWNER BE LIABLE FOR ANY DAMAGES ARISING FROM
+          THE USE OR INABILITY TO USE THE BOT.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">9</span> Changes to Terms</h2>
+        <p>
+          We may update these Terms at any time. Continued use of the Bot after changes
+          constitutes acceptance of the new Terms.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">10</span> Contact</h2>
+        <p>
+          For questions about these Terms, please contact the Bot owner,
+          <strong>@jebbert5115</strong> through Discord.
+        </p>
+        <a class="invite-btn" href="https://discord.com/oauth2/authorize?client_id=1448887377996288131" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/>
+          </svg>
+          Invite the Bot
+        </a>
+      </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section id="section-pp" class="section">
+      <h1 class="page-title">Privacy Policy</h1>
+      <p class="last-updated">Last Updated: February 26, 2026</p>
+
+      <div class="card">
+        <h2><span class="num">1</span> Introduction</h2>
+        <p>
+          This Privacy Policy explains how the Game Companion Bot ("the Bot") handles user data.
+          We are committed to protecting your privacy.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">2</span> Data We Collect</h2>
+
+        <h3>✅ Data We Store <em>(Expedition Game Only)</em></h3>
+        <ul>
+          <li><strong>Discord User ID</strong> – Used as a unique identifier to save your game progress.</li>
+          <li><strong>Game Data</strong> – Inventory items, coins, equipped gear, expedition state, and gameplay statistics.</li>
+          <li><strong>Contract Progress</strong> – Daily and hourly contract completion tracking.</li>
+          <li><strong>Notification Preferences</strong> – Last contract notification date and last update version notified, used to avoid duplicate notifications.</li>
+        </ul>
+
+        <div class="badge-do-not">
+          <div class="label">🚫 Data We Do NOT Collect or Store</div>
+          <ul>
+            <li>Discord usernames or display names</li>
+            <li>Message content</li>
+            <li>Server information</li>
+            <li>Personal information beyond your Discord User ID</li>
+            <li>Command history outside of active game state</li>
+            <li>Usage analytics</li>
+          </ul>
+        </div>
+
+        <h3>⏱ Data Processed Temporarily</h3>
+        <ul>
+          <li>When you use a non-game command, Discord sends your interaction to the Bot.</li>
+          <li>The Bot processes the command and responds immediately.</li>
+          <li>No data is stored after the response is sent for non-game commands.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">3</span> Third-Party APIs</h2>
+        <p>The Bot fetches game data from:</p>
+        <ul>
+          <li><strong>Metaforge</strong> (<a href="https://metaforge.app" target="_blank" rel="noopener">metaforge.app</a>) – Arc Raiders event data.</li>
+        </ul>
+        <p>
+          These requests do not include any of your personal information. Please review their respective
+          privacy policies for how they handle data.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">4</span> Data Storage</h2>
+        <p>The Bot uses a database to store game progress for the Expedition minigame:</p>
+        <ul>
+          <li>Your Discord User ID is stored to identify your game save.</li>
+          <li>Game inventory, coins, and stats are stored persistently.</li>
+          <li>Active expedition state is stored to allow resuming.</li>
+          <li>Contract progress and period data are stored and automatically cleaned up after 7 days.</li>
+          <li>Data is stored securely and is only accessible through Bot commands.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">5</span> Data Sharing</h2>
+        <p>We do not share any user data with third parties.</p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">6</span> Data Deletion</h2>
+        <p>
+          You may request deletion of your game data by contacting the Bot owner through Discord.
+          All stored data associated with your Discord User ID will be permanently removed.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">7</span> Discord Data</h2>
+        <p>The Bot requires certain Discord permissions to function:</p>
+        <ul>
+          <li><strong>Send Messages</strong> – To respond to your commands.</li>
+          <li><strong>Use Application Commands</strong> – To register slash commands.</li>
+          <li><strong>Read Message Content</strong> – To support prefix commands (e.g., <code>arc expedition</code>).</li>
+        </ul>
+        <p>The Bot does not request or use any permissions beyond what is necessary.</p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">8</span> Children's Privacy</h2>
+        <p>
+          The Bot does not knowingly collect information from children under 13.
+          Use of the Bot is subject to Discord's age requirements.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">9</span> Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li>Request access to your stored game data.</li>
+          <li>Request deletion of your stored game data.</li>
+          <li>Stop using the Bot at any time.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">10</span> Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy at any time. Changes will be reflected in the
+          "Last Updated" date.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">11</span> Contact</h2>
+        <p>
+          For privacy-related questions, please contact the Bot owner,
+          <strong>@jebbert5115</strong> through Discord.
+        </p>
+        <a class="invite-btn" href="https://discord.com/oauth2/authorize?client_id=1448887377996288131" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/>
+          </svg>
+          Invite the Bot
+        </a>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</div><!-- /layout -->
+
+<footer>
+  <p>
+    HUDdy &nbsp;·&nbsp;
+    <a href="#" onclick="showSection('tos'); return false;">Terms of Service</a> &nbsp;·&nbsp;
+    <a href="#" onclick="showSection('pp'); return false;">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="https://discord.com/oauth2/authorize?client_id=1448887377996288131" target="_blank" rel="noopener">Invite Bot</a>
+  </p>
+</footer>
+
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(function(s) {
+      s.classList.remove('active');
+    });
+    document.querySelectorAll('.sidebar nav button').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    document.getElementById('section-' + id).classList.add('active');
+    document.getElementById('btn-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Support deep-linking via hash: index.html#pp or index.html#tos
+  (function() {
+    var hash = window.location.hash.replace('#', '');
+    if (hash === 'pp' || hash === 'tos') {
+      showSection(hash);
+    }
+  })();
+</script>
+
+</body>
+</html>
